@@ -26,7 +26,7 @@ class UsersAlbums extends Component {
       }); 
 
       let photosOrdened = [];
-      photosOrdened.push(["ID", "Media", { role: "style" }]);
+      photosOrdened.push(["ID", "Density", { role: "style" }]);
 
       albumsPhotos.forEach(element => {
         photosOrdened.push(
@@ -50,20 +50,9 @@ class UsersAlbums extends Component {
         <Chart
           chartType="ColumnChart"
           width="100%"
-          height="700px"
+          height="600px"
           loader={<div>Loading Chart</div>}
           data={this.state.data}
-          options={{
-            title: 'Total photos by users',
-            chartArea: { width: '100%' },
-            hAxis: {
-              title: 'photos by album',
-              minValue: 0,
-            },
-            vAxis: {
-              title: 'Photos',
-            },
-          }}
         />
       </div>
     );

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class ToDos extends Component {
-  /* state = { 
-    
-  }  */
+  state = { 
+    incomplete: [],
+    complete: []
+  } 
 
   componentDidMount() {
     axios.get('http://jsonplaceholder.typicode.com/todos')
@@ -12,36 +13,35 @@ class ToDos extends Component {
         console.log(response.data);
         let data = response.data;
 
-        let completed = [];
-        let incomplete = [];
+        let completedAll = [];
+        let incompleteAll = [];
         let toDos = [];
 
         data.forEach(element => {
           if(element.completed){
-            completed.push(element);
+            completedAll.push(element);
           }else{
-            incomplete.push(element);
+            incompleteAll.push(element);
           }
         });
 
-        toDos = {
-          'completed': {
-            'data': completed,
-            'percent': (completed.length * 100) / data.length,
-            'total': completed.length
-          },
-          'incomplete': {
-            'data': incomplete,
-            'percent': (incomplete.length * 100) / data.length,
-            'total': incomplete.length
-          }
-        };
+        completedAll = [
+          completedAll,
+          (completedAll.length * 100) / data.length,
+          completedAll.length
+        ];
         
+        incompleteAll = [
+          incompleteAll,
+          (incompleteAll.length * 100) / data.length,
+          incompleteAll.length
+        ];
+
         console.log(toDos);
 
-       /*  this.setState({
+        this.setState({
           toDos: toDos
-        }); */
+        });
       });
   }
 
@@ -56,13 +56,11 @@ class ToDos extends Component {
         </div>
         <div className="row">
           <div className="col-12">
-            { this.state.toDos.map(toDo => <li>{toDo.completed}</li>)}
+            { this.state.toDos }
           </div>
         </div>
       </div>
       </div>
-
-        
     );
   }
 
