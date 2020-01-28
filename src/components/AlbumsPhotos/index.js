@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Chart from "react-google-charts";
 
-const colors = [
+/* const colors = [
   '#220a37', '#2a0d45', '#330f53', '#663096', '#551a8b', '#9975b9'
-];
-
+]; */
 class AlbumsPhotos extends Component {
   state = {
-    albumsPhotos: [],
     data: []
   };
 
@@ -17,6 +15,8 @@ class AlbumsPhotos extends Component {
       .then(res => {
         const photos = res.data;
         let albumsPhotos = [];
+        let totalPhotos = res.data.length;
+        console.log(totalPhotos);
 
         photos.forEach(element => {
           if(typeof albumsPhotos[element.albumId] === 'undefined'){
@@ -27,19 +27,15 @@ class AlbumsPhotos extends Component {
         });
 
         let photosOrdened = [];
-        photosOrdened.push(["ID", "Media", { role: "style" }]);
+        photosOrdened.push(["Photos by Album", "%"]);
 
         albumsPhotos.forEach(element => {
           photosOrdened.push(
-            [
-              element[0].albumId,
-              element.length,
-              colors[Math.floor(Math.random() * colors.length)]
-            ]
+            ['Album ' + element[0].albumId + ' (' + element.length + ' photos)', 
+            ((element.length * 100) / totalPhotos)]
           ); 
         });
 
-        this.setState({ albumsPhotos });
         this.setState({ data : photosOrdened });
       });
   }
@@ -47,16 +43,16 @@ class AlbumsPhotos extends Component {
   render() {
     return (
       <div className="App">
-        <p>Albums Photos</p>
+        <h3>Albums Photos</h3>
+        <p>% photos distribuited by albums</p>
 
         <Chart
-          chartType="ColumnChart"
+          chartType="PieChart"
           width="100%"
           height="700px"
           loader={<div>Loading Chart</div>}
           data={this.state.data}
           options={{
-            title: 'Total photos by album',
             chartArea: { width: '100%' },
             hAxis: {
               title: 'photos by album',

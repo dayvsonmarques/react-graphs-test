@@ -10,6 +10,7 @@ import './App.css';
 import AlbumsPhotos from './components/AlbumsPhotos';
 import UsersAlbums from './components/UsersAlbums';
 import ToDos from './components/ToDos';
+import HighPosts from './components/HighPosts';
 
 class App extends Component {
   render(){
@@ -18,8 +19,10 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/" component={AlbumsPhotos} exact></Route>
+            <Route path="/album-photos" component={AlbumsPhotos} exact></Route>
             <Route path="/users-album" component={UsersAlbums}></Route>
             <Route path="/to-dos" component={ToDos}></Route>
+            <Route path="/high-posts" component={HighPosts}></Route>
           </Switch>
         </Router>
       </div>
